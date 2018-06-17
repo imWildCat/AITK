@@ -16,3 +16,6 @@ package-build:
 
 release:
 	twine upload dist/*
+
+delete-pyc:
+	find . -name \*.pyc -delete
