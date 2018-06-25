@@ -1,4 +1,5 @@
-from aitk.utils.common import randstr, current_timestamp
+from aitk.utils.common import randstr, current_timestamp, merge_two_dicts, \
+    encode_dist, md5
 import datetime
 import math
 
@@ -21,3 +22,21 @@ def test_current_timestamp():
 
     assert len(str(current)) == 10
     assert current == timestamp
+
+
+def test_merge_two_dicts():
+    d_1 = {'a': 1, 'b': 2}
+    d_2 = {'b': 3, 'c': 4}
+
+    result = merge_two_dicts(d_1, d_2)
+    assert {'a': 1, 'b': 3, 'c': 4} == result
+
+
+def test_encode_dict():
+    result = encode_dist({'a': 1, 'b': '>{'})
+    assert "a=1&b=%3E%7B" == result
+
+
+def test_md5():
+    result = md5(u'hello world')
+    assert '5eb63bbbe01eeed093cb22bb8f5acdc3' == result
