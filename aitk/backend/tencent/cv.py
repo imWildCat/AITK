@@ -1,21 +1,25 @@
 from __future__ import absolute_import, division, print_function
 import requests
 import os
+import base64
 
 from aitk.utils.log import logger
 
 
 class TencentCV(object):
 
-    app_id = None
-    app_key = None
+    def __init__(self, client):
+        """ Construct TencentCV
 
-    def __init__(self, *args, **kwargs):
-        if 'app_id' in kwargs and 'app_key' in kwargs:
-            self.app_id = kwargs.get('app_id')
-            self.app_key = kwargs.get('app_key')
-        else:
-            self.app_id = os.getenv('TENCENT_APP_ID')
-            self.app_key = os.getenv('TENCENT_APP_KEY')
+        :param client: A TencentClient instance
+        :type client: TencentClient
+        """
 
-        logger.info(self)
+        self.client = client
+
+    def ocr(self, image):
+        base64_image = base64.b64encode(image.tobytes())
+        response_json = self.client.http_post(
+            'https://api.ai.qq.com/fcgi-bin/ocr/ocr_generalocr',
+            {'image': base64_image})
+        print(response_json)
