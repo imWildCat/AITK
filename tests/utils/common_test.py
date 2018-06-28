@@ -35,6 +35,9 @@ def test_merge_two_dicts():
 def test_encode_dict():
     result = encode_dist({'a': 1, 'b': '>{'})
     assert "a=1&b=%3E%7B" == result
+    # test sorted
+    result_2 = encode_dist({'one': 1, 'five': 5})
+    assert 'five=5&one=1' == result_2
 
 
 def test_md5():

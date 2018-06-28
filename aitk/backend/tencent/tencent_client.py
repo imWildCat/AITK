@@ -5,6 +5,11 @@ from aitk.utils.common import current_timestamp, randstr, merge_two_dicts, \
     encode_dist, md5
 
 from .cv import TencentCV
+from .nlp import TencentNLP
+
+HTTP_HEADERS = {
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+}
 
 
 class TencentClient(object):
@@ -22,6 +27,7 @@ class TencentClient(object):
 
         # Init abilities
         self.cv = TencentCV(self)
+        self.nlp = TencentNLP(self)
 
     def get_id(self):
         return self.app_id
@@ -33,25 +39,26 @@ class TencentClient(object):
         post_data = {
             'app_id': self.app_id,
             'time_stamp': current_timestamp(),
-            'nonce_str': randstr(32),
+            'nonce_str': randstr(15, upper_case=False),
         }
+        print('data:', data)
         post_data = merge_two_dicts(post_data, data)
 
         encoded = encode_dist(post_data)
         encoded += '&app_key=' + self.app_key
 
-        # print('post_data:', post_data)
-        # print('======')
-        # print('encoded:', encoded)
+        print('post_data:', post_data)
+        print('======')
+        print('encoded:', encoded)
 
-        signature = md5(encoded)
+        signature = md5(encoded).upper()
 
         post_data['sign'] = signature
 
-        # print('===after===')
-        # print(post_data)
+        print('===after===')
+        print(post_data)
 
-        r = requests.post(url, data=post_data)
+        r = requests.post(url, data=post_data, headers=HTTP_HEADERS)
 
         if r.status_code == requests.codes.ok:
             return r.json()

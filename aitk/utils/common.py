@@ -28,7 +28,8 @@ def merge_two_dicts(a, b):
 
 
 def encode_dist(d):
-    encoded = urlencode(d)
+    sorted_dict = sorted(d.items(), key=lambda val: val[0])
+    encoded = urlencode(sorted_dict, encoding='utf8')
     return encoded
 
 
