@@ -51,6 +51,7 @@ class TencentClient(object):
         signature = md5(encoded).upper()
 
         post_data['sign'] = signature
+        # post_data['app_key'] = self.app_key
 
         request_url = urljoin(self.BASE_URL, 'fcgi-bin/' + url)
         r = requests.post(request_url, data=post_data,
