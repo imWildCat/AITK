@@ -2,7 +2,7 @@ import requests
 import os
 
 from aitk.utils.common import current_timestamp, randstr, merge_two_dicts, \
-    encode_dist, md5
+    encode_dist, md5, urljoin, is_debug
 
 from .cv import TencentCV
 from .nlp import TencentNLP
@@ -13,6 +13,8 @@ HTTP_HEADERS = {
 
 
 class TencentClient(object):
+
+    BASE_URL = 'https://api.ai.qq.com/'
 
     app_id = None
     app_key = None
@@ -41,26 +43,22 @@ class TencentClient(object):
             'time_stamp': current_timestamp(),
             'nonce_str': randstr(15, upper_case=False),
         }
-        print('data:', data)
         post_data = merge_two_dicts(post_data, data)
 
         encoded = encode_dist(post_data)
         encoded += '&app_key=' + self.app_key
 
-        print('post_data:', post_data)
-        print('======')
-        print('encoded:', encoded)
-
         signature = md5(encoded).upper()
 
         post_data['sign'] = signature
 
-        print('===after===')
-        print(post_data)
-
-        r = requests.post(url, data=post_data, headers=HTTP_HEADERS)
+        request_url = urljoin(self.BASE_URL, 'fcgi-bin/' + url)
+        r = requests.post(request_url, data=post_data,
+                          headers=HTTP_HEADERS, verify=not is_debug())
 
         if r.status_code == requests.codes.ok:
             return r.json()
+        elif r.status_code == 404:
+            raise requests.exceptions.BaseHTTPError('404 Not Found')
         else:
             return None

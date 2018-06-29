@@ -3,9 +3,11 @@ class TencentNLP(object):
     def __init__(self, client):
         self.client = client
 
-    def analyzing_entities(self, text):
+    def analyze_entities(self, text):
         json_res = self.client.http_post(
-            'https://api.ai.qq.com/fcgi-bin/nlp/nlp_wordpos',
-            {u'text': text.encode('unicode-escape')})
-        # FIXME: charset error
-        print(json_res)
+            '/nlp/nlp_wordpos',
+            {'text': text.encode('gbk')})
+        # FIXED: charset error
+        # This stupid issue is because the Tencent AI team is using 'gbk'
+        # instead of 'utf-8'
+        return json_res
