@@ -26,10 +26,18 @@ class TencentCV(object):
                 'image': base64_image,
                 # 'format': 1,
             })
-        # FIXME: weird 'no auth' error
+        # FIXME: weird 'no auth' error of API, contacting Tencent.
         print(response_json)
 
     def detect_objects(self, image):
+        """Detect objects
+
+        :param image: a Pillow image, a file of image or a path to image
+        :type image: file or str
+        :return: json result
+        :rtype: json
+        """
+
         base64_image = self.pil_image_to_base64(image)
         response_json = self.client.http_post(
             'vision/vision_objectr',
@@ -45,3 +53,25 @@ class TencentCV(object):
         image.save(buffered, format="JPEG")
         img_str = base64.b64encode(buffered.getvalue())
         return img_str
+
+    def detect_faces(self, image, mode=1):
+        """Detect faces
+        Documentation: https://ai.qq.com/doc/detectface.shtml
+
+        :param image: a Pillow image, a file of image or a path to image
+        :type image: file or str
+        :param mode: mode, defaults to 1
+        :param mode: int, optional
+        """
+
+        # FIXME: unreasonable error of API, contacting Tencent.
+
+        base64_image = self.pil_image_to_base64(image)
+        response_json = self.client.http_post(
+            'face/face_detectface',
+            {
+                'image': base64_image,
+                'mode': int(mode)
+            }
+        )
+        return response_json
