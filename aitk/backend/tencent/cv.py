@@ -1,10 +1,11 @@
 from __future__ import absolute_import, division, print_function
 import requests
 import os
-from io import BytesIO
+
 import base64
 
 from aitk.utils.log import logger
+from aitk.utils.image_transforms import any_image_to_base64
 
 
 class TencentCV(object):
@@ -19,7 +20,7 @@ class TencentCV(object):
         self.client = client
 
     def ocr(self, image):
-        base64_image = self.pil_image_to_base64(image)
+        base64_image = any_image_to_base64(image)
         response_json = self.client.http_post(
             'ocr/ocr_generalocr',
             {
@@ -38,7 +39,7 @@ class TencentCV(object):
         :rtype: json
         """
 
-        base64_image = self.pil_image_to_base64(image)
+        base64_image = any_image_to_base64(image)
         response_json = self.client.http_post(
             'vision/vision_objectr',
             {
@@ -47,12 +48,6 @@ class TencentCV(object):
                 'format': 1,
             })
         return response_json
-
-    def pil_image_to_base64(self, image):
-        buffered = BytesIO()
-        image.save(buffered, format="JPEG")
-        img_str = base64.b64encode(buffered.getvalue())
-        return img_str
 
     def detect_faces(self, image, mode=1):
         """Detect faces
@@ -66,7 +61,7 @@ class TencentCV(object):
 
         # FIXME: unreasonable error of API, contacting Tencent.
 
-        base64_image = self.pil_image_to_base64(image)
+        base64_image = any_image_to_base64(image)
         response_json = self.client.http_post(
             'face/face_detectface',
             {
