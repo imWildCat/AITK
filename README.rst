@@ -1,7 +1,20 @@
 Artificial Intelligence Toolkit (AITK)
 ======================================
 
-The aim of this project is to bring the power of AI to every person. What he or she needs is just a little Python programming experience.
+The aim of this project is to bring the power of cloud AI services and common offline AI models to every person.
+What he or she may need is just a little Python programming experience.
+
+Supported AI backends:
+
+- `Baidu AI Open Platform`_: Almost free.
+- `Google Cloud Platform API`_: Paid, with free trail.
+- `Tencent AI Open Platform`_: Almost free.
+
+Core features of AITK:
+
+- Easy-to-use and straitforward programmable APIs.
+- Fast set-up with less than 10 minutes in general.
+- (Planning) Powerful mobile SDK for Android and iOS.
 
 As is known to us all, we are in the AI era. An unprecedented revolution happening is influencing almost every part of the real world. However, the AI technology seems very far from most of people. 
 
@@ -13,3 +26,9 @@ In general, this project has these kinds of target users:
 - Researchers or engineers, who would like to use online AI services to do part of their jobs, for example, data preprocessing 
 - AI educators, for example, to demonstrate AI in a brief way
 - Quick deployment of mature Machine Learning models on your servers (AITK zoo)
+
+
+
+.. _Baidu AI Open Platform: http://ai.baidu.com
+.. _Google Cloud Platform API: https://cloud.google.com/docs/
+.. _Tencent AI Open Platform: https://ai.qq.com
