@@ -4,7 +4,7 @@ just a little Python programming experience.
 
 Supported AI backends:
 
--   [Baidu AI Open Platform](http://ai.baidu.com): Almost free.
+-   [Baidu AI Open Platform](https://ai.baidu.com): Almost free.
 -   [Google Cloud Platform API](https://cloud.google.com/docs/): Paid,
     with free trail.
 -   [Tencent AI Open Platform](https://ai.qq.com): Almost free.

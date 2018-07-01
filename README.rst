@@ -29,6 +29,6 @@ In general, this project has these kinds of target users:
 
 
 
-.. _Baidu AI Open Platform: http://ai.baidu.com
+.. _Baidu AI Open Platform: https://ai.baidu.com
 .. _Google Cloud Platform API: https://cloud.google.com/docs/
 .. _Tencent AI Open Platform: https://ai.qq.com
