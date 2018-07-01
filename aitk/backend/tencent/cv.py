@@ -20,15 +20,24 @@ class TencentCV(object):
         self.client = client
 
     def ocr(self, image):
+        """OCR
+
+        :param image: a Pillow image, a file of image or a path to image
+        :type image: file or str
+        :return: JSON result
+        :rtype: json dict
+        """
+
         base64_image = any_image_to_base64(image)
         response_json = self.client.http_post(
             'ocr/ocr_generalocr',
             {
                 'image': base64_image,
-                # 'format': 1,
             })
-        # FIXME: weird 'no auth' error of API, contacting Tencent.
-        print(response_json)
+        return response_json
+        # TODO: concat the result
+        # for i in response_json['data']['item_list']:
+        #     print(i['itemstring'])
 
     def detect_objects(self, image):
         """Detect objects
@@ -58,9 +67,6 @@ class TencentCV(object):
         :param mode: mode, defaults to 1
         :param mode: int, optional
         """
-
-        # FIXME: unreasonable error of API, contacting Tencent.
-
         base64_image = any_image_to_base64(image)
         response_json = self.client.http_post(
             'face/face_detectface',
