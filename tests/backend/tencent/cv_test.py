@@ -1,4 +1,4 @@
-from aitk.backend.tencent import TencentCV
+from aitk.cloud.tencent import TencentCV
 import os
 
 

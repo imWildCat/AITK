@@ -1,2 +1,2 @@
-from aitk.backend.tencent.cv import TencentCV
-from aitk.backend.tencent.tencent_client import TencentClient
+from aitk.cloud.tencent.cv import TencentCV
+from aitk.cloud.tencent.tencent_client import TencentClient
