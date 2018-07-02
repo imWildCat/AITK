@@ -23,7 +23,7 @@ class TencentCV(object):
         """OCR
 
         :param image: a Pillow image, a file of image or a path to image
-        :type image: file or str
+        :type image: file or path to image in str
         :return: JSON result
         :rtype: json dict
         """
@@ -43,7 +43,7 @@ class TencentCV(object):
         """Detect objects
 
         :param image: a Pillow image, a file of image or a path to image
-        :type image: file or str
+        :type image: file or path to image in str
         :return: json result
         :rtype: json
         """
@@ -63,7 +63,7 @@ class TencentCV(object):
         Documentation: https://ai.qq.com/doc/detectface.shtml
 
         :param image: a Pillow image, a file of image or a path to image
-        :type image: file or str
+        :type image: file or path to image in str
         :param mode: mode, defaults to 1
         :param mode: int, optional
         """
@@ -75,4 +75,19 @@ class TencentCV(object):
                 'mode': int(mode)
             }
         )
+        return response_json
+
+    def detect_violence(self, image):
+        """Detect violence
+        Documentation: https://ai.qq.com/doc/imageterrorism.shtml
+        According to the doc, the image format can be JPG, PNG and BMP.
+
+        :param image: a Pillow image, a file of image or a path to image
+        :type image: file or path to image in str.
+        """
+        base64_image = any_image_to_base64(image)
+        response_json = self.client.http_post('image/image_terrorism', {
+            'image': base64_image,
+        })
+
         return response_json
