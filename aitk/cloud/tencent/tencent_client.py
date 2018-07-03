@@ -7,6 +7,8 @@ from aitk.utils.common import current_timestamp, randstr, merge_two_dicts, \
 from .cv import TencentCV
 from .nlp import TencentNLP
 
+from .chat import TencentChat
+
 HTTP_HEADERS = {
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
 }
@@ -30,6 +32,7 @@ class TencentClient(object):
         # Init abilities
         self.cv = TencentCV(self)
         self.nlp = TencentNLP(self)
+        self.chat = TencentChat(self)
 
     def get_id(self):
         return self.app_id
