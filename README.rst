@@ -6,7 +6,7 @@ What he or she may need is just a little Python programming experience.
 
 Supported AI backends:
 
-- `Baidu AI Open Platform`_: Almost free.
+- `Baidu AI Open Platform`_: Free tier and paid.
 - `Google Cloud Platform API`_: Paid, with free trail.
 - `Tencent AI Open Platform`_: Almost free.
 
