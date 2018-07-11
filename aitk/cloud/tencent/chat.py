@@ -12,7 +12,7 @@ class TencentChat(object):
         :param text: the text for chatting
         :type text: str
         :return: JSON response
-        :rtype: JSON in dict
+        :rtype: dict
         """
 
         json_res = self.client.http_post(

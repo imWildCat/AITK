@@ -4,6 +4,15 @@ class TencentNLP(object):
         self.client = client
 
     def analyze_entities(self, text):
+        """Analyze entities in text
+
+        Args:
+            text (str): the text to be analyzed
+
+        Returns:
+            dict: json response
+        """
+
         json_res = self.client.http_post(
             '/nlp/nlp_wordpos',
             {'text': text.encode('gbk')})
@@ -16,16 +25,16 @@ class TencentNLP(object):
         """Translate API
         Original documentation: https://ai.qq.com/doc/nlptrans.shtml
         Note: the second API mentioned in the documentation is used.
+        
+        Args:
+            text (str, required): Defaults to None. The text to be translated.
+            source (str, required): Defaults to None. Source language.
+            target (str, required): Defaults to None. Target language.
 
-        :param text: the text to be translated, defaults to None
-        :param text: str, required
-        :param source: source language, defaults to None
-        :param source: str, required
-        :param target: target language, defaults to None
-        :param target: str, required
-        :return: json response
-        :rtype: object
+        Returns:
+            dict: json response
         """
+
         assert text, 'text must be provided'
         assert source, 'source must be provided'
         assert target, 'target must be provided'
