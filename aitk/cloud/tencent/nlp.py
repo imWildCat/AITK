@@ -25,7 +25,7 @@ class TencentNLP(object):
         """Translate API
         Original documentation: https://ai.qq.com/doc/nlptrans.shtml
         Note: the second API mentioned in the documentation is used.
-        
+
         Args:
             text (str, required): Defaults to None. The text to be translated.
             source (str, required): Defaults to None. Source language.
