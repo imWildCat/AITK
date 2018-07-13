@@ -5,6 +5,8 @@ import pickle
 from aitk.utils.common import current_timestamp, is_debug, merge_two_dicts, \
     urljoin
 
+from .cv import BaiduCV
+
 HTTP_HEADERS = {
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
 }
@@ -31,6 +33,8 @@ class BaiduClient(object):
         else:
             self.api_key = os.getenv('BAIDU_API_KEY')
             self.secret_key = os.getenv('BAIDU_SECRET_KEY')
+
+        self.cv = BaiduCV(self)
 
     def _request_token_data(self):
         params = (

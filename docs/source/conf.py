@@ -188,6 +188,7 @@ epub_exclude_files = ['search.html']
 intersphinx_mapping = {
     'requests': ('http://docs.python-requests.org/en/master/', None),
     'python': ('https://docs.python.org/3', None),
+    'PIL': ('https://pillow.readthedocs.io/en/5.2.x/', None),
 }
 
 # -- Extension configuration -------------------------------------------------
