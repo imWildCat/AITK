@@ -17,5 +17,8 @@ package-build:
 release:
 	twine upload dist/*
 
+doc-en:
+	cd docs/source && sphinx-apidoc -f -o . ../../aitk
+	cd docs && PYTHONPATH=.. make html
 delete-pyc:
 	find . -name \*.pyc -delete
