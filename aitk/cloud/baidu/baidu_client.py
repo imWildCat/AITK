@@ -6,10 +6,7 @@ from aitk.utils.common import current_timestamp, is_debug, merge_two_dicts, \
     urljoin
 
 from .cv import BaiduCV
-
-HTTP_HEADERS = {
-    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-}
+from .nlp import BaiduNLP
 
 TOKEN_CACHE_FILE = '/tmp/aitk_baidu.p'
 
@@ -35,6 +32,7 @@ class BaiduClient(object):
             self.secret_key = os.getenv('BAIDU_SECRET_KEY')
 
         self.cv = BaiduCV(self)
+        self.nlp = BaiduNLP(self)
 
     def _request_token_data(self):
         params = (
@@ -84,15 +82,35 @@ class BaiduClient(object):
         assert 'access_token' in token_data
         return token_data['access_token']
 
-    def http_post(self, uri, data):
+    def http_post(self, uri, data, is_json=False):
+        """Post data to api
+
+        Args:
+            uri (str): API URI
+            data (dict): data as a dict
+            is_json (bool, optional): Defaults to False. Post as JSON data
+
+        Raises:
+            requests.exceptions.BaseHTTPError: When this URL is not found
+
+        Returns:
+            dict: data in JSON
+        """
         post_data = {
             'access_token': self._get_access_token(),
         }
+
         post_data = merge_two_dicts(post_data, data)
 
         request_url = urljoin(self.BASE_URL, '/rest/2.0/' + uri)
-        r = requests.post(request_url, data=post_data,
-                          headers=HTTP_HEADERS, verify=not is_debug())
+
+        if is_json:
+            access_token = post_data.pop('access_token')
+            r = requests.post(request_url + '?access_token=' + access_token,
+                              json=post_data, verify=not is_debug())
+        else:
+            r = requests.post(request_url, data=post_data,
+                              verify=not is_debug())
 
         if r.status_code == requests.codes.ok:
             return r.json()
