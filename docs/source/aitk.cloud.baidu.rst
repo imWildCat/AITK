@@ -20,6 +20,14 @@ aitk.cloud.baidu.cv module
     :undoc-members:
     :show-inheritance:
 
+aitk.cloud.baidu.nlp module
+---------------------------
+
+.. automodule:: aitk.cloud.baidu.nlp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

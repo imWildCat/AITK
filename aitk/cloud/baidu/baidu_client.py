@@ -20,9 +20,6 @@ class BaiduClient(object):
 
     BASE_URL = 'https://aip.baidubce.com'
 
-    api_key = None
-    secret_key = None
-
     def __init__(self, *args, **kwargs):
         if 'api_key' in kwargs and 'secret_key' in kwargs:
             self.api_key = kwargs.get('api_key')
