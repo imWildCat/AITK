@@ -8,6 +8,8 @@ from aitk.utils.common import current_timestamp, is_debug, merge_two_dicts, \
 from .cv import BaiduCV
 from .nlp import BaiduNLP
 
+from .chat import BaiduChat
+
 TOKEN_CACHE_FILE = '/tmp/aitk_baidu.p'
 
 
@@ -30,6 +32,7 @@ class BaiduClient(object):
 
         self.cv = BaiduCV(self)
         self.nlp = BaiduNLP(self)
+        self.chat = BaiduChat(self)
 
     def _request_token_data(self):
         params = (
@@ -79,13 +82,18 @@ class BaiduClient(object):
         assert 'access_token' in token_data
         return token_data['access_token']
 
-    def http_post(self, uri, data, is_json=False):
+    def http_post(self, uri, data, is_json=False, prefix=True):
         """Post data to api
+        Documentation: http://ai.baidu.com/docs#/UNIT-API/top
+        Please note that creating app which has the permission to use UNIT is
+        tricky. Try https://console.bce.baidu.com/ai/#/ai/unit/app/list
 
         Args:
             uri (str): API URI
             data (dict): data as a dict
             is_json (bool, optional): Defaults to False. Post as JSON data
+            prefix (bool, optional): Defaults to True.
+                                     Whether to add prefix for request URI
 
         Raises:
             requests.exceptions.BaseHTTPError: When this URL is not found
@@ -99,7 +107,10 @@ class BaiduClient(object):
 
         post_data = merge_two_dicts(post_data, data)
 
-        request_url = urljoin(self.BASE_URL, '/rest/2.0/' + uri)
+        if prefix:
+            request_url = urljoin(self.BASE_URL, '/rest/2.0/' + uri)
+        else:
+            request_url = urljoin(self.BASE_URL, uri)
 
         if is_json:
             access_token = post_data.pop('access_token')
