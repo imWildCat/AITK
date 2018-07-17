@@ -40,3 +40,27 @@ class BaiduCV(object):
                 Supported formats: jpg, png and bmp.
         """
         return self._ocr('ocr/v1/general_basic', image)
+
+    def detect_faces(self, image):
+        """Detect faces
+        Documentation: http://ai.baidu.com/docs#/Face-Detect-V3/top
+
+        Args:
+            image (:obj:`str`, :obj:`PIL.Image.Image`, :obj:`file`):
+                path to image file, or a PIL image, or a file-like object.
+                Supported formats: jpg, png and bmp.
+
+        Returns:
+            [type]: [description]
+        """
+
+        params = {
+            'image': image,
+            'image_type': 'BASE64',
+            'face_field': 'age,beauty,expression,faceshape,gender,' +
+            'glasses,landmark,race,quality,facetype',
+            'max_face_num': 10,
+            'face_type': 'LIVE',
+        }
+
+        return self.client.http_post('face/v3/detect', params, is_json=True)
