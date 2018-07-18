@@ -51,7 +51,7 @@ class BaiduCV(object):
                 Supported formats: jpg, png and bmp.
 
         Returns:
-            [type]: [description]
+            [dict]: JSON response
         """
 
         params = {
@@ -64,3 +64,20 @@ class BaiduCV(object):
         }
 
         return self.client.http_post('face/v3/detect', params, is_json=True)
+
+    def detect_objects(self, image):
+        """Detect objects
+        Documentation: https://ai.baidu.com/docs#/ImageClassify-API/ed0a8379
+
+        Args:
+            image (:obj:`str`, :obj:`PIL.Image.Image`, :obj:`file`):
+                path to image file, or a PIL image, or a file-like object.
+                Supported formats: jpg, png and bmp.
+
+        Returns:
+            [dict]: JSON response
+        """
+        params = {
+            'image': any_image_to_base64(image),
+        }
+        return self.client.http_post('image-classify/v1/object_detect', params)
