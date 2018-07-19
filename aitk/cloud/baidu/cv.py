@@ -55,7 +55,7 @@ class BaiduCV(object):
         """
 
         params = {
-            'image': image,
+            'image': any_image_to_base64(image).decode('utf-8'),
             'image_type': 'BASE64',
             'face_field': 'age,beauty,expression,faceshape,gender,' +
             'glasses,landmark,race,quality,facetype',
