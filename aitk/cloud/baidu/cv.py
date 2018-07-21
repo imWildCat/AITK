@@ -51,7 +51,7 @@ class BaiduCV(object):
                 Supported formats: jpg, png and bmp.
 
         Returns:
-            [dict]: JSON response
+            dict: JSON response
         """
 
         params = {
@@ -75,9 +75,32 @@ class BaiduCV(object):
                 Supported formats: jpg, png and bmp.
 
         Returns:
-            [dict]: JSON response
+            dict: JSON response
         """
         params = {
             'image': any_image_to_base64(image),
         }
         return self.client.http_post('image-classify/v1/object_detect', params)
+
+    def detect_violence(self, image):
+        """Detect violence
+        Documentation: http://ai.baidu.com/docs#/ImageCensoring-API/top
+
+        Args:
+            image (:obj:`str`, :obj:`PIL.Image.Image`, :obj:`file`):
+                path to image file, or a PIL image, or a file-like object.
+                Supported formats: jpg, png and bmp.
+
+        Returns:
+            dict: JSON response
+        """
+
+        base64_image = any_image_to_base64(image)
+        response_json = self.client.http_post(
+            'solution/v1/img_censor/user_defined',
+            {
+                'image': base64_image,
+            }
+        )
+
+        return response_json
