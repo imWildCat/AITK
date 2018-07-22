@@ -71,6 +71,7 @@ class BaiduClient(object):
             with open(TOKEN_CACHE_FILE, 'rb') as f:
                 try:
                     cached = pickle.load(f)
+                    # TODO: check client id here
                     if cached and cached['expires_at'] > current_timestamp():
                         return cached
                 except EOFError:
