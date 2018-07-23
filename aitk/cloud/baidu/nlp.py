@@ -1,5 +1,11 @@
 class BaiduNLP(object):
     def __init__(self, client):
+        """Initializer
+
+        Args:
+            client (:obj:`BaiduClient`): a BaiduClient instance
+        """
+
         self.client = client
 
     def analyze_entities(self, text):
