@@ -1,6 +1,11 @@
 class BaiduChat(object):
 
     def __init__(self, client):
+        """Initializer
+
+        Args:
+            client (:obj:`BaiduClient`): a BaiduClient instance
+        """
         self.client = client
 
     def chat_v1(self, scene_id, query, session_id=''):
