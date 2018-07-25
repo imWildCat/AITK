@@ -23,6 +23,12 @@ class BaiduClient(object):
     BASE_URL = 'https://aip.baidubce.com'
 
     def __init__(self, *args, **kwargs):
+        """BaiduClient initializer
+        Please note that, both 'api_key' and 'secret_key' should be provided
+        as keyword parameters. Otherwise, the system environment variables,
+        BAIDU_API_KEY and BAIDU_SECRET_KEY will be used.
+        """
+
         if 'api_key' in kwargs and 'secret_key' in kwargs:
             self.api_key = kwargs.get('api_key')
             self.secret_key = kwargs.get('secret_key')
@@ -35,6 +41,7 @@ class BaiduClient(object):
         self.chat = BaiduChat(self)
 
     def _request_token_data(self):
+        # Request a access token
         params = (
             ('grant_type', 'client_credentials'),
             ('client_id', self.api_key),
@@ -60,12 +67,14 @@ class BaiduClient(object):
             return None
 
     def _save_token_data(self, token_data):
+        # Save the access token
         if not os.path.isfile(TOKEN_CACHE_FILE):
             _touch_file(TOKEN_CACHE_FILE)
         with open(TOKEN_CACHE_FILE, 'wb') as f:
             pickle.dump(token_data, f)
 
     def _request_and_cache_token_data(self):
+        # Reqeust access token, if it has been cached, use the cached data
         if os.path.isfile(TOKEN_CACHE_FILE):
             # TODO: cache in memoery
             with open(TOKEN_CACHE_FILE, 'rb') as f:
@@ -79,6 +88,12 @@ class BaiduClient(object):
         return self._request_token_data()
 
     def _get_access_token(self):
+        """Get the access token
+
+        Returns:
+            str: access token
+        """
+
         token_data = self._request_and_cache_token_data()
         assert 'access_token' in token_data
         return token_data['access_token']
