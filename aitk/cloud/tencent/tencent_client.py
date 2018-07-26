@@ -24,6 +24,11 @@ class TencentClient(object):
     app_key = None
 
     def __init__(self, *args, **kwargs):
+        """TencentClient initializer
+        Please note that, both 'api_id' and 'app_key' should be provided
+        as keyword parameters. Otherwise, the system environment variables,
+        TENCENT_APP_ID and TENCENT_APP_KEY will be used.
+        """
         if 'app_id' in kwargs and 'app_key' in kwargs:
             self.app_id = kwargs.get('app_id')
             self.app_key = kwargs.get('app_key')
@@ -38,12 +43,37 @@ class TencentClient(object):
         self.speech = TencentSpeech(self)
 
     def get_id(self):
+        """Get app id
+
+        Returns:
+            str: app id
+        """
+
         return self.app_id
 
     def get_key(self):
+        """Get app key
+
+        Returns:
+            str: app key
+        """
+
         return self.app_key
 
-    def http_post(self, url, data):
+    def http_post(self, uri, data):
+        """Post data to Tencent's backend
+
+        Args:
+            uri (str): request uri
+            data (dict): request data
+
+        Raises:
+            requests.exceptions.BaseHTTPError: when request fails
+
+        Returns:
+            dict: response json
+        """
+
         post_data = {
             'app_id': self.app_id,
             'time_stamp': current_timestamp(),
@@ -58,7 +88,7 @@ class TencentClient(object):
 
         post_data['sign'] = signature
 
-        request_url = urljoin(self.BASE_URL, 'fcgi-bin/' + url)
+        request_url = urljoin(self.BASE_URL, 'fcgi-bin/' + uri)
         r = requests.post(request_url, data=post_data,
                           headers=HTTP_HEADERS, verify=not is_debug())
 
