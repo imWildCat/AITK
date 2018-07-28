@@ -11,10 +11,10 @@ from aitk.utils.image_transforms import any_image_to_base64
 class TencentCV(object):
 
     def __init__(self, client):
-        """ Construct TencentCV
+        """Initializer
 
-        :param client: A TencentClient instance
-        :type client: TencentClient
+        Args:
+            client (:obj:`TencentClient`): a TencentClient instance
         """
 
         self.client = client

@@ -36,6 +36,11 @@ def check_file_type(file_path):
 class TencentSpeech(object):
 
     def __init__(self, client):
+        """Initializer
+
+        Args:
+            client (:obj:`TencentClient`): a TencentClient instance
+        """
         self.client = client
 
     def recognize_speech_short(self, speech, bit_rate=16000):

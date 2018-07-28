@@ -1,6 +1,12 @@
 class TencentNLP(object):
 
     def __init__(self, client):
+        """Initializer
+
+        Args:
+            client (:obj:`TencentClient`): a TencentClient instance
+        """
+
         self.client = client
 
     def analyze_entities(self, text):

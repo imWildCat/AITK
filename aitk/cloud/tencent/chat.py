@@ -1,6 +1,11 @@
 class TencentChat(object):
 
     def __init__(self, client):
+        """Initializer
+
+        Args:
+            client (:obj:`TencentClient`): a TencentClient instance
+        """
         self.client = client
 
     def chat(self, session_id, text):
