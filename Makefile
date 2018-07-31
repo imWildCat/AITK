@@ -7,7 +7,7 @@ readme:
 	pandoc -s README.rst -t markdown_phpextra -o README.md
 
 style-check:
-	flake8 --ignore=E402 aitk/
+	flake8 --config .flake8 aitk/
 
 package-build:
 	rm -rf aitk.egg-info
